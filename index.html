@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBAPP ANTEPRIMA - MAT22</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000000;
+        color: #f5f5f7;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .container {
+        text-align: center;
+        max-width: 600px;
+        background: #1c1c1e;
+        padding: 40px 25px;
+        border-radius: 24px;
+        border: 1px solid #38383a;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      }
+
+      /* === STILE E ANIMAZIONE CLESSIDRA === */
+      .hourglass-container {
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .hourglass {
+        position: relative;
+        width: 32px;
+        height: 48px;
+        /* L'animazione totale dura 3 secondi e si ripete all'infinito */
+        animation: flip-pause-accelerate 3s infinite;
+        /*cubic-bezier per gestire l'accelerazione e le fermate brusche */
+        animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+      
+      /* Forme della clessidra (triangoli) */
+      .hourglass::before, .hourglass::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+      }
+      
+      /* Triangolo superiore (sabbia bianca) */
+      .hourglass::before {
+        top: 0;
+        border-top: 24px solid #f5f5f7;
+        border-radius: 4px 4px 0 0;
+      }
+      
+      /* Triangolo inferiore (vuoto, bordo grigio) */
+      .hourglass::after {
+        bottom: 0;
+        border-bottom: 24px solid #38383a;
+        border-radius: 0 0 4px 4px;
+      }
+
+      /* Definizione dei Keyframes dell'animazione */
+      @keyframes flip-pause-accelerate {
+        0%   { transform: rotate(0deg); }
+        /* Giro rapido di 180 gradi */
+        15%  { transform: rotate(180deg); }
+        /* Pausa lunga a metà giro */
+        50%  { transform: rotate(180deg); }
+        /* Ripartenza con forte accelerazione fino a 360 gradi */
+        65%  { transform: rotate(360deg); }
+        /* Pausa finale prima di ricominciare */
+        100% { transform: rotate(360deg); }
+      }
+      /* === FINE CLESSIDRA === */
+
+      .badge {
+        display: inline-block;
+        background-color: #38383a; /* Grigio scuro Apple per non distrarre */
+        color: #a1a1a6;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+        border: 1px solid #48484a;
+      }
+      
+      h1 {
+        color: #f5f5f7;
+        font-size: 1.3rem;
+        margin-top: 0;
+        margin-bottom: 30px;
+        line-height: 1.4;
+        font-weight: 600;
+      }
+      
+      .info-box {
+        background: #000000;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+        border: 1px solid #1c1c1e;
+      }
+      
+      .info-row {
+        margin: 14px 0;
+        font-size: 1.1rem;
+        color: #a1a1a6;
+        display: flex;
+        align-items: center;
+      }
+      
+      .info-row span {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+      
+      .info-row strong {
+        color: #f5f5f7;
+        font-weight: 600;
+      }
+      
+      .alert-container {
+        border-top: 1px solid #38383a;
+        padding-top: 25px;
+      }
+
+      .alert-title {
+        color: #ff9f0a; /* Arancione Avviso Apple */
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .alert-text {
+        color: #f5f5f7;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+      <div class="hourglass-container">
+        <div class="hourglass"></div>
+      </div>
+
+      <div class="badge">ABSTRACT: MAT22</div>
+      
+      <h1>Making Dental Color Measurement Accessible: An AI-Assisted Smartphone Protocol with Cross-Polarized Lighting</h1>
+      
+      <div class="info-box">
+        <div class="info-row"><span>📍</span> <strong>Luogo:</strong> Mole Vanvitelliana (Totem 2)</div>
+        <div class="info-row"><span>📅</span> <strong>Data:</strong> 12 Giugno 2026</div>
+        <div class="info-row"><span>⏰</span> <strong>Orario:</strong> 12:30</div>
+      </div>
+      
+      <div class="alert-container">
+        <span class="alert-title">⚠️ ACCESSO LIMITATO</span>
+        <p class="alert-text">
+          L'anteprima esclusiva alla <strong>webapp proprietaria</strong> sarà attivata e accessibile ricaricando questa pagina unicamente durante la discussione del poster al Congresso CDUO.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
