@@ -22,54 +22,106 @@
         max-width: 600px;
         background: #1c1c1e;
         padding: 40px 25px;
-        border-radius: 24px;
+        border-radius: 28px;
         border: 1px solid #38383a;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.7);
       }
 
-      /* === STILE E ANIMAZIONE CLESSIDRA === */
+      /* ==========================================
+         NUOVA CLESSIDRA REALISTICA IN PURO CSS
+         ========================================== */
       .hourglass-container {
-        margin-bottom: 30px;
+        margin-bottom: 35px;
         display: flex;
         justify-content: center;
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); /* Ombra morbida */
       }
       
       .hourglass {
         position: relative;
-        width: 32px;
-        height: 48px;
-        /* L'animazione totale dura 3 secondi e si ripete all'infinito */
+        width: 40px;
+        height: 60px;
+        /* Animazione complessa: giro, pausa, accelerazione */
         animation: flip-pause-accelerate 3s infinite;
-        /*cubic-bezier per gestire l'accelerazione e le fermate brusche */
         animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
       }
       
-      /* Forme della clessidra (triangoli) */
-      .hourglass::before, .hourglass::after {
-        content: '';
+      /* La struttura di vetro (bulbo superiore e inferiore) */
+      .glass {
         position: absolute;
-        left: 0;
-        width: 0;
-        height: 0;
-        border-left: 16px solid transparent;
-        border-right: 16px solid transparent;
-      }
-      
-      /* Triangolo superiore (sabbia bianca) */
-      .hourglass::before {
-        top: 0;
-        border-top: 24px solid #f5f5f7;
-        border-radius: 4px 4px 0 0;
-      }
-      
-      /* Triangolo inferiore (vuoto, bordo grigio) */
-      .hourglass::after {
-        bottom: 0;
-        border-bottom: 24px solid #38383a;
-        border-radius: 0 0 4px 4px;
+        top: 0; left: 0; width: 100%; height: 100%;
+        border-radius: 50% / 30%;
+        /* Gradiente radiale per simulare il vetro curvo e trasparente */
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%),
+                    radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 20%);
+        border: 2px solid rgba(161, 161, 166, 0.3); /* Bordo grigio vetro */
+        box-sizing: border-box;
       }
 
-      /* Definizione dei Keyframes dell'animazione */
+      /* Riflesso di luce fisso sul vetro */
+      .glass::after {
+        content: '';
+        position: absolute;
+        top: 10%; left: 15%; width: 20%; height: 25%;
+        background: rgba(255,255,255,0.25);
+        border-radius: 50%;
+        filter: blur(1px);
+      }
+      
+      /* La strozzatura (il collo) */
+      .neck {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 6px; height: 10px;
+        background-color: rgba(161, 161, 166, 0.2);
+        transform: translate(-50%, -50%);
+        border-radius: 2px;
+        border: 1px solid rgba(161, 161, 166, 0.3);
+        z-index: 5;
+      }
+      
+      /* Pseudo-elementi base per la sabbia */
+      .sand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        background-color: #f5f5f7; /* Sabbia bianca */
+        /* Texture sabbiosa granulosa */
+        background-image: 
+          radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+          radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+        background-size: 4px 4px;
+        background-position: 0 0, 2px 2px;
+        transition: height 0.2s linear;
+      }
+      
+      /* Sabbia nel bulbo superiore (piena all'inizio) */
+      .sand-top {
+        top: 5px;
+        height: 25px;
+        border-radius: 50% 50% 0 0;
+      }
+      
+      /* Sabbia nel bulbo inferiore (vuota all'inizio) */
+      .sand-bottom {
+        bottom: 5px;
+        height: 5px;
+        background-color: #38383a; /* Sabbia grigia (gia' caduta) */
+        border-radius: 0 0 50% 50%;
+      }
+      
+      /* Il flusso di sabbia che cade (statico ma realistico) */
+      .stream {
+        position: absolute;
+        top: 25px; left: 50%;
+        width: 1px; height: 10px;
+        background-color: rgba(245, 245, 247, 0.6);
+        transform: translateX(-50%);
+        z-index: 4;
+      }
+
+      /* KEYFRAMES DELL'ANIMAZIONE (Giro, pausa lunga, accelerazione, pausa breve) */
       @keyframes flip-pause-accelerate {
         0%   { transform: rotate(0deg); }
         /* Giro rapido di 180 gradi */
@@ -85,15 +137,16 @@
 
       .badge {
         display: inline-block;
-        background-color: #38383a; /* Grigio scuro Apple per non distrarre */
+        background-color: #38383a;
         color: #a1a1a6;
         padding: 6px 14px;
         border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.85rem;
+        font-weight: 700;
+        font-size: 0.8rem;
         margin-bottom: 20px;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         border: 1px solid #48484a;
+        text-transform: uppercase;
       }
       
       h1 {
@@ -107,8 +160,8 @@
       
       .info-box {
         background: #000000;
-        border-radius: 16px;
-        padding: 20px;
+        border-radius: 18px;
+        padding: 22px;
         margin-bottom: 30px;
         text-align: left;
         border: 1px solid #1c1c1e;
@@ -123,8 +176,8 @@
       }
       
       .info-row span {
-        margin-right: 10px;
-        font-size: 1.2rem;
+        margin-right: 12px;
+        font-size: 1.3rem;
       }
       
       .info-row strong {
@@ -134,22 +187,23 @@
       
       .alert-container {
         border-top: 1px solid #38383a;
-        padding-top: 25px;
+        padding-top: 28px;
       }
 
       .alert-title {
-        color: #ff9f0a; /* Arancione Avviso Apple */
-        font-size: 1.2rem;
+        color: #ff9f0a;
+        font-size: 1.25rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         display: block;
+        letter-spacing: -0.01em;
       }
 
       .alert-text {
         color: #f5f5f7;
         font-size: 1.1rem;
         font-weight: 500;
-        line-height: 1.5;
+        line-height: 1.55;
         margin: 0;
       }
     </style>
@@ -158,10 +212,16 @@
     <div class="container">
       
       <div class="hourglass-container">
-        <div class="hourglass"></div>
+        <div class="hourglass">
+          <div class="glass"></div>
+          <div class="neck"></div>
+          <div class="sand sand-top"></div>
+          <div class="stream"></div>
+          <div class="sand sand-bottom"></div>
+        </div>
       </div>
 
-      <div class="badge">ABSTRACT: MAT22</div>
+      <div class="badge">MAT22 | CODICE POSTER</div>
       
       <h1>Making Dental Color Measurement Accessible: An AI-Assisted Smartphone Protocol with Cross-Polarized Lighting</h1>
       
