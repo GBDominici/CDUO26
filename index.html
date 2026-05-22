@@ -27,110 +27,64 @@
         box-shadow: 0 20px 40px rgba(0,0,0,0.7);
       }
 
-      /* ==========================================
-         NUOVA CLESSIDRA REALISTICA IN PURO CSS
-         ========================================== */
+            /* === STILE E ANIMAZIONE CLESSIDRA STILIZZATA === */
       .hourglass-container {
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         display: flex;
         justify-content: center;
-        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); /* Ombra morbida */
       }
       
       .hourglass {
         position: relative;
-        width: 40px;
-        height: 60px;
-        /* Animazione complessa: giro, pausa, accelerazione */
+        width: 32px;
+        height: 48px;
         animation: flip-pause-accelerate 3s infinite;
         animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
       }
       
-      /* La struttura di vetro (bulbo superiore e inferiore) */
-      .glass {
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        border-radius: 50% / 30%;
-        /* Gradiente radiale per simulare il vetro curvo e trasparente */
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%),
-                    radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 20%);
-        border: 2px solid rgba(161, 161, 166, 0.3); /* Bordo grigio vetro */
-        box-sizing: border-box;
-      }
-
-      /* Riflesso di luce fisso sul vetro */
-      .glass::after {
+      /* Contorni di vetro (triangoli grigi di sfondo) */
+      .hourglass::before, .hourglass::after {
         content: '';
         position: absolute;
-        top: 10%; left: 15%; width: 20%; height: 25%;
-        background: rgba(255,255,255,0.25);
-        border-radius: 50%;
-        filter: blur(1px);
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
       }
       
-      /* La strozzatura (il collo) */
-      .neck {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 6px; height: 10px;
-        background-color: rgba(161, 161, 166, 0.2);
-        transform: translate(-50%, -50%);
-        border-radius: 2px;
-        border: 1px solid rgba(161, 161, 166, 0.3);
-        z-index: 5;
+      /* Vetro superiore */
+      .hourglass::before {
+        top: 0;
+        border-top: 24px solid #38383a;
+        border-radius: 4px 4px 0 0;
       }
       
-      /* Pseudo-elementi base per la sabbia */
-      .sand {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        background-color: #f5f5f7; /* Sabbia bianca */
-        /* Texture sabbiosa granulosa */
-        background-image: 
-          radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-          radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
-        background-size: 4px 4px;
-        background-position: 0 0, 2px 2px;
-        transition: height 0.2s linear;
-      }
-      
-      /* Sabbia nel bulbo superiore (piena all'inizio) */
-      .sand-top {
-        top: 5px;
-        height: 25px;
-        border-radius: 50% 50% 0 0;
-      }
-      
-      /* Sabbia nel bulbo inferiore (vuota all'inizio) */
-      .sand-bottom {
-        bottom: 5px;
-        height: 5px;
-        background-color: #38383a; /* Sabbia grigia (gia' caduta) */
-        border-radius: 0 0 50% 50%;
-      }
-      
-      /* Il flusso di sabbia che cade (statico ma realistico) */
-      .stream {
-        position: absolute;
-        top: 25px; left: 50%;
-        width: 1px; height: 10px;
-        background-color: rgba(245, 245, 247, 0.6);
-        transform: translateX(-50%);
-        z-index: 4;
+      /* Vetro inferiore */
+      .hourglass::after {
+        bottom: 0;
+        border-bottom: 24px solid #38383a;
+        border-radius: 0 0 4px 4px;
       }
 
-      /* KEYFRAMES DELL'ANIMAZIONE (Giro, pausa lunga, accelerazione, pausa breve) */
+      /* Sabbia bianca contenuta "dentro" il vetro superiore */
+      .sand {
+        position: absolute;
+        top: 2px;
+        left: 3px;
+        width: 0;
+        height: 0;
+        border-left: 13px solid transparent;
+        border-right: 13px solid transparent;
+        border-top: 19px solid #f5f5f7;
+        z-index: 2;
+      }
+
       @keyframes flip-pause-accelerate {
         0%   { transform: rotate(0deg); }
-        /* Giro rapido di 180 gradi */
         15%  { transform: rotate(180deg); }
-        /* Pausa lunga a metà giro */
         50%  { transform: rotate(180deg); }
-        /* Ripartenza con forte accelerazione fino a 360 gradi */
         65%  { transform: rotate(360deg); }
-        /* Pausa finale prima di ricominciare */
         100% { transform: rotate(360deg); }
       }
       /* === FINE CLESSIDRA === */
@@ -213,11 +167,7 @@
       
       <div class="hourglass-container">
         <div class="hourglass">
-          <div class="glass"></div>
-          <div class="neck"></div>
-          <div class="sand sand-top"></div>
-          <div class="stream"></div>
-          <div class="sand sand-bottom"></div>
+          <div class="sand"></div>
         </div>
       </div>
 
